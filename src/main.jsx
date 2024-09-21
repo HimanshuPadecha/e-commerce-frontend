@@ -19,11 +19,12 @@ const router = createBrowserRouter(
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/add-product' element={<AddProduct type="Add"/>}/>
       <Route path='/edit-product' element={<AddProduct type="Edit"/>}/>
-      <Route path='/change-password' element={<ChangePassword/>}/>
+      <Route path='/change-password' element={<ChangePassword type={true}/>}/>
+      <Route path='/change-password-otp/:email' element={<ChangePassword type={false}/>} />
       <Route path='/my-products' element={<MyProducts/>}/>
       <Route path='/edit-details' element={<EditDetails/>}/>
       <Route path='/cart' element={<Cart/>}/>
-      <Route path='/verify-otp' element={<VerifyOtp/>}/>
+      <Route path='/verify-otp/:email' element={<VerifyOtp/>}/>
       <Route path='/product/:id' element={<Product/>}/>
     </Route>
   )

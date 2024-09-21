@@ -17,8 +17,8 @@ const Signup = () => {
   const [username,setUsername] = useState("")
   const [password,setPassword] = useState("")
   const [error,setError] = useState("")
-  const [messsage,setMessage] = useState("")
   const [balance,setBalnce] = useState("")
+  const [toggle,setToggle] = useState(false)
   const [loading,setLoading] = useState(false)
 
   function isValidEmail(email) {
@@ -41,7 +41,7 @@ const Signup = () => {
 
       const parsedBalance = parseFloat(balance)
 
-      if(password.length < 8 || !password || !address || !username)
+      if(password.length < 8 || !password || !address || !username || !balance)
       {
         setError("Enter proper credentials to sign up")
         return
@@ -50,22 +50,22 @@ const Signup = () => {
       try {
         const response = await axios.post(`${url}/users/register`,{
           email,address,password,username,balance:parsedBalance
-        })
+        },{timeout:5000})
         console.log("response from sign up :",response);
         if(response){
           const user = await axios.post(`${url}/users/login`,{
             email,password
           },{
-            withCredentials:true
+            withCredentials:true,
+            timeout:5000
           })
             console.log("login log :",user);
             
           if(user){
-            const userData = await axios.get(`${url}/users/get-current-user`,{withCredentials:true})
+            const userData = await axios.get(`${url}/users/get-current-user`,{withCredentials:true,timeout:5000})
             console.log("userDate log:",userData); 
             if(userData){
                 dispatch(login(userData.data))
-                setMessage("You have created account successfully !!")
                 setEmail("");
                 setAddress("");
                 setUsername("");
@@ -94,7 +94,10 @@ const Signup = () => {
           console.log(error.response.data);
           
           setError(error.response.data.message || "An error occurred. Please try again.");
-        } else {
+        } else if(error.code == "ECONNABORTED"){
+            setError("Request timed out ! please try again ")
+        }
+        else{
           // Fallback to generic error message if no response data
           setError(error.message || "An unexpected error occurred.");
         }
@@ -118,6 +121,8 @@ const Signup = () => {
           placeholder="User Name"
           value={username}
           onChange={e=>setUsername(e.target.value)}
+          name='username'
+          autoComplete='username'
           />
           <input 
           type="number"
@@ -125,6 +130,8 @@ const Signup = () => {
           placeholder="Balance"
           value={balance}
           onChange={e=>setBalnce(e.target.value)}
+          name='balance'
+          autoComplete='balance'
           />
           <input 
           type="email" 
@@ -132,26 +139,31 @@ const Signup = () => {
           placeholder="Email" 
           value={email}
           onChange={e => setEmail(e.target.value)}
+          name='email'
+          autoComplete='email'
           />
           <input type="text" 
           className="input mb-5" 
           placeholder="Address" 
           value={address}
           onChange={e=> setAddress(e.target.value)}
+          name='address'
+          autoComplete='address'
           />
-          <input 
-          type="text" 
-          className="input mb-5" 
-          placeholder="Password" 
-          value={password}
-          onChange={e=>setPassword(e.target.value)}
-          />
+         <div className="flex pr-4 item-center justify-end">
+              <input
+                type={toggle ? "text": "password"}
+                className="input mb-5"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <input type="checkbox" className="switch" checked={toggle} onChange={e=> setToggle(e.target.checked)}/>
+            </div>
         </div>
 
         <button type="submit" className="flex items-center justify-center" disabled={loading}>{loading ? <Loader /> : "Sign up"}</button>
       </form>
-
-      <span>{messsage}</span>
 
       <div className="form-section ">
       <span className='text-red-500 font-semibold mt-2'>{error}</span>
