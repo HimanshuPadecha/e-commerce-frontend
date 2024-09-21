@@ -4,6 +4,9 @@ import App from './App.jsx'
 import {  createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from 'react-router-dom'
 import './index.css'
 import { AddProduct, Cart, ChangePassword, Deliver, EditDetails, Home, Login, MyProducts, Ordered, Product, Signup, VerifyOtp } from './components/index.js'
+import { Provider } from 'react-redux'
+import {store} from "./store/store.js"
+import { ToastContainer } from 'react-toastify'
 
 
 const router = createBrowserRouter(
@@ -28,6 +31,9 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <Provider store={store}>
     <RouterProvider router={router} />
+    <ToastContainer />
+    </Provider>
   </StrictMode>,
 )
