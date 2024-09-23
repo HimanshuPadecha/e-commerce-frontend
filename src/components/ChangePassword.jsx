@@ -30,9 +30,40 @@ function ChangePassword({type}) {
     }
 
     if(type){
-
+      setLoading(true)
+      setError("")
+      try {
+        const response = await axios.patch(`${url}/users/change-password`,{password:passwordOne,newPassword:passwordTwo},{withCredentials:true,timeout:5000})
+        if(response){
+          toast.success("Password changed for this account", {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            className: "toast",
+          });
+        }
+      } catch (error) {
+        if (error.response && error.response.data) {
+          // Display server error message
+          console.log(error.response.data);
+  
+          setError(
+            error.response.data.message || "An error occurred. Please try again."
+          );
+        } else if (error.code == "ECONNABORTED") {
+          setError("Request timed out ! please try again ");
+        } else {
+          // Fallback to generic error message if no response data
+          setError(error.message || "An unexpected error occurred.");
+        }
+        console.log(error);
+      }
     }else{
-      if((passwordOne !== passwordTwo) || passwordOne.length<6){
+      if((passwordOne !== passwordTwo) || passwordOne.length<8){
         setError("password is not matched with confirm password or too short")
       }
         setLoading(true)

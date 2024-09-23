@@ -150,6 +150,14 @@ body{
   height: 40px;
   width: 100%;
 }
+.buynow{
+  width: 100px;
+  height: 50px;
+}
+.addToCart{
+  width: 125px;
+  height: 50px;
+}
 
 .form button:hover {
   background-color: #005ce6;

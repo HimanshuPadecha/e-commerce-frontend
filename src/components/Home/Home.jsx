@@ -27,7 +27,6 @@ const Home = () => {
       if(isLoggedIn){
         return
       }else{
-        
         const userData = await axios.get(`${url}/users/get-current-user`,{withCredentials:true,timeout:5000})
         console.log(userData);
         if(userData){

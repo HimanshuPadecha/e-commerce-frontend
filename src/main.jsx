@@ -9,6 +9,8 @@ import {store} from "./store/store.js"
 import { ToastContainer } from 'react-toastify'
 import { loadDetails } from './components/Product.jsx'
 import ProtectedRoutes from './components/ProtectedRoutes.jsx'
+import { getOrderedItems } from './components/Ordered.jsx'
+import { getOrderedItemsToDeliver } from './components/Deliver.jsx'
 
 
 
@@ -22,8 +24,8 @@ const router = createBrowserRouter(
       <Route path='/change-password-otp/:email' element={<ChangePassword type={false}/>} />
       <Route path='login' element={<Login/>}/>
       <Route element={<ProtectedRoutes/>}>
-      <Route path='/ordered' element={<Ordered />} />
-      <Route path='/deliver' element={<Deliver/>}/>
+      <Route path='/ordered' element={<Ordered />} loader={getOrderedItems} />
+      <Route path='/deliver' element={<Deliver/>} loader={getOrderedItemsToDeliver}/>
       <Route path='/add-product' element={<AddProduct type="Add"/>}/>
       <Route path='/edit-product' element={<AddProduct type="Edit"/>}/>
       <Route path='/change-password' element={<ChangePassword type={true}/>}/>
