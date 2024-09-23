@@ -74,43 +74,40 @@ const Nav = () => {
       if (error.response && error.response.data) {
         // Display server error message
         console.log(error.response.data);
-        
-        // setError(error.response.data.message || "An error occurred. Please try again.");
 
-
-        toast.success(`${error.response.data.message}`,{
-          position:"bottom-right",
-          autoClose:3000,
-          hideProgressBar:false,
-          closeOnClick:true,
-          pauseOnHover:true,
-          draggable:true,
-          progress:undefined,
-          className:"toast"
-        })
-      } else if(error.code == "ECONNABORTED"){
-        toast.success("Request timed out...",{
-          position:"bottom-right",
-          autoClose:3000,
-          hideProgressBar:false,
-          closeOnClick:true,
-          pauseOnHover:true,
-          draggable:true,
-          progress:undefined,
-          className:"toast"
-        })
-      }
-      else{
-        toast.success("Unexpected error occoured !!",{
-          position:"bottom-right",
-          autoClose:3000,
-          hideProgressBar:false,
-          closeOnClick:true,
-          pauseOnHover:true,
-          draggable:true,
-          progress:undefined,
-          className:"toast"
-        })
+        toast.success(`${error.response.data.message}`, {
+          position: "bottom-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "toast",
+        });
+      } else if (error.code == "ECONNABORTED") {
+        toast.success("Request timed out...", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "toast",
+        });
+      } else {
+        // Fallback to generic error message if no response data
+        toast.success("Unexpected error occoured !!", {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          className: "toast",
+        });
       }
       console.log(error);
     }
@@ -122,7 +119,7 @@ const Nav = () => {
         <div className="flex justify-between items-center h-16">
           {/* Brand on the left */}
           <div className="flex-shrink-0 flex items-center">
-            <h1 className="text-white text-xl font-bold">Ecommerce</h1>
+            <h1 className="text-white text-xl font-bold">TrandHaven</h1>
           </div>
 
           {/* Links on the right */}
