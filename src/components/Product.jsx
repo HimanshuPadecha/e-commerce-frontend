@@ -361,6 +361,7 @@ export const loadDetails = async ({params})=>{
       });
     }
     console.log(error);
+    return null
   }
 } 
 

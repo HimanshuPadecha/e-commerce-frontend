@@ -17,15 +17,15 @@ function ProtectedRoutes() {
     const isRegistered = async () =>{
         try {
             const response = await axios.get(`${url}/users/get-current-user`,{withCredentials:true,timeout:5000})
+            // console.log(response);
+            setIsLoggedIn(true)
+            
             if(response){
                 dispatch(login(response.data))
-                setIsLoggedIn(true)
-            }else{
-                dispatch(logout())
-                setIsLoggedIn(false)
             }
         } catch (error) {
             console.log(error);
+            dispatch(logout())
         }finally{
             setLoading(false)
         }

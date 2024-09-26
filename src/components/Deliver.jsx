@@ -81,5 +81,6 @@ export const getOrderedItemsToDeliver = async()=>{
       });
     }
     console.log(error);
+    return null
   }
 }

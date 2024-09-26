@@ -11,6 +11,8 @@ import { loadDetails } from './components/Product.jsx'
 import ProtectedRoutes from './components/ProtectedRoutes.jsx'
 import { getOrderedItems } from './components/Ordered.jsx'
 import { getOrderedItemsToDeliver } from './components/Deliver.jsx'
+import { getMyProducts } from './components/MyProducts.jsx'
+import { getCartItems } from './components/Cart.jsx'
 
 
 
@@ -29,9 +31,9 @@ const router = createBrowserRouter(
       <Route path='/add-product' element={<AddProduct type="Add"/>}/>
       <Route path='/edit-product' element={<AddProduct type="Edit"/>}/>
       <Route path='/change-password' element={<ChangePassword type={true}/>}/>
-      <Route path='/my-products' element={<MyProducts/>}/>
+      <Route path='/my-products' element={<MyProducts/>} loader={getMyProducts}/>
       <Route path='/edit-details' element={<EditDetails/>}/>
-      <Route path='/cart' element={<Cart/>}/>
+      <Route path='/cart' element={<Cart/>} loader={getCartItems}/>
       </Route>
       
     </Route>

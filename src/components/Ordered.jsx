@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { url } from '../url';
 import { useLoaderData } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 function Ordered() {
   useEffect(() => {
@@ -95,5 +96,6 @@ export const getOrderedItems = async()=>{
         });
       }
       console.log(error);
+      return null
     }
 }
